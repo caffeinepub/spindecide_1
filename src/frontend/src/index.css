@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Dark mode is the default theme */
+  :root {
+    --radius: 0.75rem;
+
+    /* Dark navy palette */
+    --background: 0.14 0.035 262;
+    --background-2: 0.17 0.04 262;
+    --foreground: 0.97 0.01 260;
+    --card: 0.21 0.045 260;
+    --card-foreground: 0.97 0.01 260;
+    --card-border: 0.28 0.055 260;
+    --popover: 0.21 0.045 260;
+    --popover-foreground: 0.97 0.01 260;
+    --primary: 0.7 0.11 189;
+    --primary-foreground: 0.12 0.02 260;
+    --secondary: 0.28 0.055 260;
+    --secondary-foreground: 0.97 0.01 260;
+    --muted: 0.25 0.05 260;
+    --muted-foreground: 0.72 0.04 260;
+    --accent: 0.8 0.09 183;
+    --accent-foreground: 0.14 0.035 262;
+    --destructive: 0.65 0.22 27;
+    --destructive-foreground: 0.97 0 0;
+    --border: 0.28 0.055 260;
+    --input: 0.25 0.05 260;
+    --ring: 0.7 0.11 189;
+
+    /* Glow colors */
+    --glow-teal: oklch(0.7 0.11 189 / 0.15);
+    --glow-purple: oklch(0.55 0.18 290 / 0.12);
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.7 0.11 189;
+    --chart-3: 0.55 0.18 290;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.21 0.045 260;
+    --sidebar-foreground: 0.97 0.01 260;
+    --sidebar-primary: 0.7 0.11 189;
+    --sidebar-primary-foreground: 0.12 0.02 260;
+    --sidebar-accent: 0.28 0.055 260;
+    --sidebar-accent-foreground: 0.97 0.01 260;
+    --sidebar-border: 0.28 0.055 260;
+    --sidebar-ring: 0.7 0.11 189;
+  }
+
+  /* Light mode override */
+  .light {
+    --background: 0.97 0.01 260;
+    --background-2: 0.93 0.02 260;
+    --foreground: 0.17 0.04 262;
+    --card: 1 0 0;
+    --card-foreground: 0.17 0.04 262;
+    --card-border: 0.88 0.03 260;
+    --popover: 1 0 0;
+    --popover-foreground: 0.17 0.04 262;
+    --primary: 0.62 0.12 189;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.92 0.025 260;
+    --secondary-foreground: 0.17 0.04 262;
+    --muted: 0.93 0.02 260;
+    --muted-foreground: 0.48 0.04 260;
+    --accent: 0.62 0.12 189;
+    --accent-foreground: 1 0 0;
+    --border: 0.88 0.03 260;
+    --input: 0.9 0.025 260;
+    --ring: 0.62 0.12 189;
+    --glow-teal: oklch(0.62 0.12 189 / 0.08);
+    --glow-purple: oklch(0.55 0.18 290 / 0.06);
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+@layer utilities {
+  .bg-app-gradient {
+    background: radial-gradient(
+        ellipse 80% 60% at 85% 40%,
+        var(--glow-teal),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 10% 60%,
+        var(--glow-purple),
+        transparent 55%
+      ), oklch(var(--background));
+  }
+
+  .card-glass {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--card-border));
+    backdrop-filter: blur(12px);
+  }
+
+  .text-muted {
+    color: oklch(var(--muted-foreground));
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 30px oklch(0.7 0.11 189 / 0.3), 0 0 60px
+      oklch(0.7 0.11 189 / 0.1);
+  }
+
+  .spin-btn {
+    background: linear-gradient(
+      135deg,
+      oklch(0.7 0.11 189),
+      oklch(0.65 0.13 175)
+    );
+    color: oklch(0.12 0.02 260);
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+
+  .spin-btn:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px oklch(0.7 0.11 189 / 0.4);
+  }
+
+  .spin-btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .spin-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .quick-card {
+    border-radius: 1rem;
+    border: 1px solid oklch(var(--card-border));
+    background: oklch(var(--card));
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s
+      ease;
+    cursor: pointer;
+  }
+
+  .quick-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .result-card-enter {
+    animation: resultSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes resultSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 20px oklch(0.7 0.11 189 / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 50px oklch(0.7 0.11 189 / 0.6);
+    }
+  }
+
+  .pulse-glow-anim {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .result-card-enter,
+    .pulse-glow-anim {
+      animation: none;
+    }
+    .spin-btn:hover:not(:disabled) {
+      transform: none;
+    }
+  }
+}
